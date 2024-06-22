@@ -1,0 +1,16 @@
+services:
+  web:
+#    image: php:8.3-mysql
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - "./src:/var/www/html"
+  db:
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./db:/var/lib/mysql:Z"
+    environment:
+      MARIADB_ROOT_PASSWORD: 030425
