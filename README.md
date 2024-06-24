@@ -99,8 +99,10 @@ CREATE TABLE electives (
 CREATE TABLE awd (
     Awdid INT PRIMARY KEY AUTO_INCREMENT,
     Awdname VARCHAR(30) NOT NULL,
+    Honid INT NOT NULL,
     Sno VARCHAR(12),
-    FOREIGN KEY (Sno) REFERENCES student(Sno)
+    FOREIGN KEY (Sno) REFERENCES student(Sno)，
+    FOREIGN KEY (Honid) REFERENCES honors(Honid)
 );
 
 CREATE TABLE honors (
@@ -112,14 +114,14 @@ CREATE TABLE public (
     pubId INT PRIMARY KEY AUTO_INCREMENT,
     pubName VARCHAR(30) NOT NULL,
     Tno VARCHAR(10),
-    FOREIGN KEY (Tno) REFERENCES teacher(Tno)
+    sciId INT,
+    FOREIGN KEY (Tno) REFERENCES teacher(Tno),
+    FOREIGN KEY (sciId) REFERENCES sci(sciId)
 );
 
 CREATE TABLE sci (
-    pubId INT,
     sciId INT PRIMARY KEY AUTO_INCREMENT,
     scino VARCHAR(30) NOT NULL,
-    FOREIGN KEY (pubId) REFERENCES public(pubId)
 );
 ```
 
@@ -165,6 +167,7 @@ erDiagram
         date Sdate "出生日期"
         varchar(30) Semail "电子邮件"
         varchar(10) Dno "所在系"
+        varchar(10) Mno "所在专业"
         varchar(10) Clsno "所在班"
     }
     electives["<选修>"] {
@@ -174,7 +177,8 @@ erDiagram
     }
     awd["获奖"] {
         int Awdid "获奖编号 主键"
-        varchar(30) Awdname "奖项名称"
+        varchar(30) Awdname "奖项等级"
+        int Honid "奖项编号 外键"
         int Sid "学生编号 外键"
     }
     honors["奖项"] {
@@ -183,13 +187,14 @@ erDiagram
     }
     public["发表"] {
         int pubId "发表编号 主键"
+        int sciId "期刊编号 外键"
         varchar pubName "论文名称"
+        int sciId "期刊编号 外键"
         varchar(10) Tno "教师编号 外键"
     }
     sci["期刊"] {
-        int pubId "发表编号 外键"
         int sciId "期刊编号"
-        varchar(10) scino "期刊名称"
+        varchar(30) scino "期刊名称"
     }
     course }|--|{ giveLessons : "多对多" 
     giveLessons }|--|{ teacher : "多对一"
