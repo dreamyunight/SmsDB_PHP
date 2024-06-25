@@ -53,7 +53,7 @@
 
             <div class="col-md-4">
               <label for="Sdept" class="form-label">学院</label>
-              <select class="form-select" id="Sdept" name="Sdept" required>
+              <select class="form-select" id="Sdept" name="Sdept">
                 <option value="">Choose...</option>
                 <?php
                 require_once '../config/database.php';
@@ -70,7 +70,7 @@
 
             <div class="col-md-4">
               <label for="Smajor" class="form-label">专业</label>
-              <select class="form-select" id="Smajor" name="Smajor" required>
+              <select class="form-select" id="Smajor" name="Smajor">
                 <option value="">Choose...</option>
                 <?php
                 $major = mysqli_query($db, "SELECT Mno, Mname FROM major");
@@ -86,7 +86,7 @@
 
             <div class="col-md-4">
               <label for="Sclass" class="form-label">班级</label>
-              <select class="form-select" id="Sclass" name="Sclass" required>
+              <select class="form-select" id="Sclass" name="Sclass">
                 <option value="">Choose...</option>
                 <?php
                 $classes = mysqli_query($db, "SELECT Clsno, clsname FROM classes");

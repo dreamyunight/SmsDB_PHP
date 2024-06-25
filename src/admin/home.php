@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["admin"])) {
-  header("HTTP/1.1 302 Moved Temporatily");
+  header("HTTP/1.1 403 Moved Temporatily");
   header("Location: " . "../");
   exit();
 }
@@ -45,6 +45,9 @@ if (!isset($_SESSION["admin"])) {
       </div>
       <div class="item">
         <a href="./getLog.php" target="frame">获奖信息</a>
+      </div>
+      <div class="item">
+        <a href="./addLog.php" target="frame">获奖登记</a>
       </div>
       <div class="subtitle">
         院系管理

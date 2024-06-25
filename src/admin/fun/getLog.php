@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>学生管理>>查询学生</title>
+  <title>学生管理>>学生奖项</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-  <title>查询学生</title>
+  <title>学生奖项</title>
   <link rel="stylesheetlocal" type="text/css" href="css/addStudent.css">
   <!-- Custom styles for this template -->
   <link href="checkout.css" rel="stylesheet">
@@ -17,12 +17,8 @@
       <tr>
         <th scope="col">学号</th>
         <th scope="col">姓名</th>
-        <th scope="col">性别</th>
-        <th scope="col">年龄</th>
-        <th scope="col">班级</th>
-        <th scope="col">专业</th>
-        <th scope="col">院系</th>
-        <th scope="col">更改信息</th>
+        <th scope="col">奖项名称</th>
+        <th scope="col">获奖等级</th>
       </tr>
     </thead>
     <tbody>
@@ -32,19 +28,14 @@
       $com = 'SELECT 
                         s.Sno AS 学号,
                         s.Sname AS 姓名,
-                        s.Ssex AS 性别,
-                        YEAR(CURDATE()) - YEAR(s.Sdate) AS 年龄,
-                        c.clsname AS 班级,
-                        m.Mname AS 专业,
-                        d.Dname AS 学院
+                        h.Honname AS 奖项名称,
+                        a.Awdname AS 奖项等级
                     FROM 
                         student s
                     JOIN 
-                        classes c ON s.Clsno = c.Clsno
+                        awd a ON s.Sno = a.Sno
                     JOIN 
-                        major m ON s.Mno = m.Mno
-                    JOIN 
-                        dept d ON s.Dno = d.Dno
+                        honors h ON h.honid = a.Awdid
                     WHERE 1=1';
 
       if (!empty($_POST['Sno'])) {
@@ -52,15 +43,6 @@
       }
       if (!empty($_POST['Sname'])) {
         $com .= ' AND s.Sname LIKE "%' . mysqli_real_escape_string($db, $_POST['Sname']) . '%"';
-      }
-      if (!empty($_POST['Sclass'])) {
-        $com .= ' AND c.clsname LIKE "%' . mysqli_real_escape_string($db, $_POST['Sclass']) . '%"';
-      }
-      if (!empty($_POST['Smajor'])) {
-        $com .= ' AND m.Mname LIKE "%' . mysqli_real_escape_string($db, $_POST['Smajor']) . '%"';
-      }
-      if (!empty($_POST['Sdept'])) {
-        $com .= ' AND d.Dname LIKE "%' . mysqli_real_escape_string($db, $_POST['Sdept']) . '%"';
       }
 
       $result = mysqli_query($db, $com);
@@ -71,14 +53,8 @@
             echo "<tr>";
             echo "<td>{$row->学号}</td>";
             echo "<td>{$row->姓名}</td>";
-            echo "<td>{$row->性别}</td>";
-            echo "<td>{$row->年龄}</td>";
-            echo "<td>{$row->班级}</td>";
-            echo "<td>{$row->专业}</td>";
-            echo "<td>{$row->学院}</td>";
-            echo "<td>";
-            echo '<a href="modiStudent.php?Sno=' . $row->学号 . '">修改</a> / <a href="delStudent.php?Sno=' . $row->学号 . '">删除</a>';
-            echo "</td>";
+            echo "<td>{$row->奖项名称}</td>";
+            echo "<td>{$row->奖项等级}</td>";
             echo "</tr>";
           }
         } else {
