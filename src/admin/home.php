@@ -44,7 +44,7 @@ if (!isset($_SESSION["admin"])) {
         <a href="./queueStudent.php" target="frame">查询学生</a>
       </div>
       <div class="item">
-        <a href="./getLog.php" target="frame">奖惩管理</a>
+        <a href="./getLog.php" target="frame">获奖信息</a>
       </div>
       <div class="subtitle">
         院系管理
@@ -77,7 +77,7 @@ if (!isset($_SESSION["admin"])) {
         <a href="./queueRetake.php" target="frame">补考重修</a>
       </div>
       <div class="subtitle">
-        数据统计
+        <!-- 数据统计
       </div>
       <div class="item">
         <a href="./scoreStatistic.php" target="frame">成绩统计</a>
@@ -85,7 +85,7 @@ if (!isset($_SESSION["admin"])) {
       <div class="item">
         <a href="./classStatistic.php" target="frame">选课统计</a>
       </div>
-      <div class="subtitle">
+      <div class="subtitle"> -->
         系统设置
       </div>
       <div class="item">

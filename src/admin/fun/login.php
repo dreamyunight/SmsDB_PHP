@@ -1,6 +1,6 @@
 <?php
 
-require_once("../config/database.php");
+require_once("../../config/database.php");
 
 if (!$db) {
   die('Fail to connect to Server');
@@ -9,7 +9,7 @@ if (!$db) {
 $user = $_POST['username'];
 $pass = $_POST['password'];
 if ($user == null || $pass == null) {
-  // echo "<script>alert('你不是管理员！')</script>";
+  // echo "<script>alert('你没有管理员！')</script>";
   die("账号和密码不能为空!");
 }
 
@@ -23,13 +23,13 @@ function check_param($value = null)
 }
 
 if (check_param($user) && check_param($pass)) {
-  $sql = 'select * from test where username=' . "'{$user}'and password=" . "'$pass';";
+  $sql = 'select * from teacher where Tno=' . "'{$user}'and Tpassword=" . "'$pass';";
   $res = mysqli_query($db, $sql);
   $row = $res->num_rows; //将获取到的用户名和密码拿到数据库里面去查找匹配
   if ($row != 0) {
     session_start();
     $_SESSION["admin"] = $user;
-    header('Location: home.php');
+    header('Location: ../home.php');
   } else {
     echo "<script>alert('用户名或密码错误');history.go(-1);</script>";
   }

@@ -6,21 +6,31 @@
 
 学生管理
 
-- 新增学生
-- 查询学生以及修改学生信息
+- 添加学生，输入全部的学生信息，点击提交即可添加新的学生
+- 查询学生，输入要搜索的信息，可以进行模糊搜素，修改学生信息
 - 查询以及增加和删除学生获奖信息
   1. 输入信息点击查询按钮即可查询学生信息，后面带有修改选项，点击修改即可修改学生获奖信息
   2. 点击新增即可增加学生获奖信息
 
 教师管理
 
-- 查询老师以及修改授课信息
-- 查询教师发表期刊信息
+- 查询老师，输入教师姓名等详细信息，即可模糊搜索教师信息，包括教师编号，姓名，所在院系。
+- 修改授课信息，输入教师姓名和教师编号，更改教师授课信息。
+- 查询教师发表期刊信息，输入教师姓名，编号，即可查看教师发表的论文名及其对应期刊名
 
 学生选课
 
-- 查询学生并修改选课信息（增加或者查询后修改）
+- 查询学生选课信息，输入学生学号即可查询学生的选课详情以及对应的老师
+- 并修改选课信息（增加或者查询后修改）
 - 查询学生选课对应的成绩
+
+学校管理
+
+- 增加/删除班级
+- 增加/删除专业
+- 增加/删除学院
+- 增加/删除奖项
+- 增加/删除期刊
 
 系统设置
 
@@ -96,18 +106,23 @@ CREATE TABLE electives (
     FOREIGN KEY (Sno) REFERENCES student(Sno)
 );
 
-CREATE TABLE awd (
-    Awdid INT PRIMARY KEY AUTO_INCREMENT,
-    Awdname VARCHAR(30) NOT NULL,
-    Honid INT NOT NULL,
-    Sno VARCHAR(12),
-    FOREIGN KEY (Sno) REFERENCES student(Sno)，
-    FOREIGN KEY (Honid) REFERENCES honors(Honid)
-);
-
 CREATE TABLE honors (
     Honid INT PRIMARY KEY AUTO_INCREMENT,
     Honname VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE awd (
+    Awdid INT PRIMARY KEY AUTO_INCREMENT,
+    Awdname VARCHAR(30) NOT NULL,
+    Honid INT,
+    Sno VARCHAR(12),
+    FOREIGN KEY (Sno) REFERENCES student(Sno),
+    FOREIGN KEY (Honid) REFERENCES honors(Honid)
+);
+
+CREATE TABLE sci (
+    sciId INT PRIMARY KEY AUTO_INCREMENT,
+    scino VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE public (
@@ -117,11 +132,6 @@ CREATE TABLE public (
     sciId INT,
     FOREIGN KEY (Tno) REFERENCES teacher(Tno),
     FOREIGN KEY (sciId) REFERENCES sci(sciId)
-);
-
-CREATE TABLE sci (
-    sciId INT PRIMARY KEY AUTO_INCREMENT,
-    scino VARCHAR(30) NOT NULL,
 );
 ```
 
@@ -208,5 +218,126 @@ erDiagram
     electives }|--|{ student : "多对多"
     student ||--|{ awd : "一对多"
     awd }|--|| honors : "多对一"
+```
+
+插入测试数据
+
+```sql
+--dept
+INSERT INTO dept (Dno, Dname) VALUES
+('D001', '计算机科学'),
+('D002', '数学'),
+('D003', '物理'),
+('D004', '化学'),
+('D005', '生物');
+
+--major
+INSERT INTO major (Mno, Mname, Dno) VALUES
+('M001', '软件工程', 'D001'),
+('M002', '应用数学', 'D002'),
+('M003', '天体物理', 'D003'),
+('M004', '有机化学', 'D004'),
+('M005', '分子生物学', 'D005');
+
+--classes
+INSERT INTO classes (Clsno, clsname, Clssize, Mno) VALUES
+('C001', '软001', 30, 'M001'),
+('C002', '数001', 25, 'M002'),
+('C003', '物001', 20, 'M003'),
+('C004', '化001', 35, 'M004'),
+('C005', '生001', 28, 'M005');
+
+--student
+INSERT INTO student (Sno, Sname, Ssex, Sdate, Semail, Dno, Mno, Clsno) VALUES
+('S001', '爱丽丝', '女', '2000-01-01', 'alice@example.com', 'D001', 'M001', 'C001'),
+('S002', '鲍勃', '男', '1999-02-15', 'bob@example.com', 'D002', 'M002', 'C002'),
+('S003', '查理', '男', '2001-03-20', 'charlie@example.com', 'D003', 'M003', 'C003'),
+('S004', '戴维', '男', '2000-05-22', 'david@example.com', 'D004', 'M004', 'C004'),
+('S005', '艾玛', '女', '2001-07-30', 'emma@example.com', 'D005', 'M005', 'C005'),
+('S006', '弗兰克', '男', '1998-11-12', 'frank@example.com', 'D001', 'M001', 'C001'),
+('S007', '格蕾丝', '女', '1999-04-05', 'grace@example.com', 'D002', 'M002', 'C002'),
+('S008', '亨利', '男', '2000-06-18', 'henry@example.com', 'D003', 'M003', 'C003'),
+('S009', '艾莎', '女', '2001-08-25', 'elsa@example.com', 'D004', 'M004', 'C004'),
+('S010', '杰克', '男', '1999-09-30', 'jack@example.com', 'D005', 'M005', 'C005'),
+('S011', '卡拉', '女', '2000-12-14', 'kara@example.com', 'D001', 'M001', 'C001'),
+('S012', '李', '男', '1998-10-08', 'li@example.com', 'D002', 'M002', 'C002'),
+('S013', '玛丽亚', '女', '2001-01-22', 'maria@example.com', 'D003', 'M003', 'C003'),
+('S014', '尼克', '男', '2000-03-14', 'nick@example.com', 'D004', 'M004', 'C004'),
+('S015', '奥莉维亚', '女', '1999-02-19', 'olivia@example.com', 'D005', 'M005', 'C005');
+
+--course
+INSERT INTO course (Cno, Cname, Ccredit) VALUES
+('C101', '数据库系统', 3.0),
+('C102', '微积分', 4.0),
+('C103', '量子力学', 3.5),
+('C104', '有机化学', 3.0),
+('C105', '分子生物学', 4.0);
+
+--teacher
+INSERT INTO teacher (Tno, Tpassword, Tname, Dno) VALUES
+('T001', 'password123', '史密斯博士', 'D001'),
+('T002', 'password456', '约翰逊博士', 'D002'),
+('T003', 'password789', '威廉姆斯博士', 'D003'),
+('T004', 'password321', '戴维斯博士', 'D004'),
+('T005', 'password654', '威尔逊博士', 'D005');
+
+--giveLessons
+INSERT INTO giveLessons (Cno, Tno, startDate) VALUES
+('C101', 'T001', '2023-09-01'),
+('C102', 'T002', '2023-09-01'),
+('C103', 'T003', '2023-09-01'),
+('C104', 'T004', '2023-09-01'),
+('C105', 'T005', '2023-09-01');
+
+--electives
+INSERT INTO electives (Cno, Sno, grade) VALUES
+('C101', 'S001', 95),
+('C102', 'S002', 88),
+('C103', 'S003', 92),
+('C104', 'S004', 85),
+('C105', 'S005', 90),
+('C101', 'S006', 87),
+('C102', 'S007', 93),
+('C103', 'S008', 91),
+('C104', 'S009', 89),
+('C105', 'S010', 84),
+('C101', 'S011', 96),
+('C102', 'S012', 85),
+('C103', 'S013', 94),
+('C104', 'S014', 90),
+('C105', 'S015', 88);
+
+--honors
+INSERT INTO honors (Honname) VALUES
+('全国大学生数学竞赛'),
+('蓝桥杯算法设计大赛'),
+('西门子杯机械设计大赛'),
+('ACM-ICPC算法设计大赛'),
+('百度之星算法设计大赛');
+
+--awd
+INSERT INTO awd (Awdname, Honid, Sno) VALUES
+('国家一等奖', 2, 'S001'),
+('国家三等奖', 1, 'S002'),
+('省级二等奖', 3, 'S003'),
+('省级一等奖', 1, 'S004'),
+('国家优秀奖', 1, 'S005');
+
+--sci
+INSERT INTO sci (scino) VALUES
+('SCI001'),
+('SCI002'),
+('SCI003'),
+('SCI004'),
+('SCI005');
+
+--public
+INSERT INTO public (pubName, Tno, sciId) VALUES
+('数据库研究', 'T001', 1),
+('数学模型', 'T002', 2),
+('量子理论', 'T003', 3),
+('化学反应', 'T004', 4),
+('生物工程', 'T005', 5);
+
 ```
 
