@@ -77,7 +77,7 @@
             echo "<td>{$row->专业}</td>";
             echo "<td>{$row->学院}</td>";
             echo "<td>";
-            echo '<a href="modiStudent.php?Sno=' . $row->学号 . '">修改</a> / <a href="delStudent.php?Sno=' . $row->学号 . '">删除</a>';
+            echo '<a class="icon-link icon-link-hover" href="modiStudent.php?Sno=' . $row->学号 . '">修改<svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg></a>';
             echo "</td>";
             echo "</tr>";
           }

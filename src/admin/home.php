@@ -50,13 +50,13 @@ if (!isset($_SESSION["admin"])) {
         <a href="./addLog.php" target="frame">获奖登记</a>
       </div>
       <div class="subtitle">
-        院系管理
+        教师管理
       </div>
       <div class="item">
-        <a href="./queueDept.php" target="frame">院系信息</a>
+        <a href="./queueTeacher.php" target="frame">老师信息</a>
       </div>
       <div class="item">
-        <a href="./queueMajor.php" target="frame">专业列表</a>
+        <a href="./addTeacher.php" target="frame">添加老师</a>
       </div>
       <div class="subtitle">
         课程管理

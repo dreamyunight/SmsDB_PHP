@@ -1,4 +1,8 @@
-<!doctype html>
+<?php
+require_once("../config/database.php");
+?>
+
+<!Doctype html>
 <html lang="en">
 
 <head>
@@ -30,7 +34,7 @@
       </div>
 
       <div class="row g-5">
-        <form action="./fun/addStudent.php" method="post" target="resultbox" class="needs-validation">
+        <form action="./fun/addLog.php" method="post" target="resultbox" class="needs-validation">
           <div class="row g-3">
 
             <div class="col-sm-4">
@@ -51,53 +55,36 @@
               </div>
             </div>
 
-            <div class="col-md-4">
-              <label for="Sdept" class="form-label">学院</label>
-              <select class="form-select" id="Sdept" name="Sdept">
-                <option value="">Choose...</option>
-                <?php
-                require_once '../config/database.php';
-                $dept = mysqli_query($db, "SELECT Dno, Dname FROM dept");
-                while ($dr = mysqli_fetch_assoc($dept)) {
-                  echo '<option value="' . $dr['Dno'] . '">' . $dr['Dname'] . '</option>';
-                }
-                ?>
-              </select>
-              <div class="invalid-feedback">
-                请选择学生所在学院
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <label for="Smajor" class="form-label">专业</label>
-              <select class="form-select" id="Smajor" name="Smajor">
-                <option value="">Choose...</option>
-                <?php
-                $major = mysqli_query($db, "SELECT Mno, Mname FROM major");
-                while ($mr = mysqli_fetch_assoc($major)) {
-                  echo '<option value="' . $mr['Mno'] . '">' . $mr['Mname'] . '</option>';
-                }
-                ?>
-              </select>
-              <div class="invalid-feedback">
-                请输入学生所在专业
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <label for="Sclass" class="form-label">班级</label>
+            <div class="col-md-6">
+              <label for="Sclass" class="form-label">奖项名称</label>
               <select class="form-select" id="Sclass" name="Sclass">
                 <option value="">Choose...</option>
                 <?php
-                $classes = mysqli_query($db, "SELECT Clsno, clsname FROM classes");
-                while ($cl = mysqli_fetch_assoc($classes)) {
-                  echo '<option value="' . $cl['Clsno'] . '">' . $cl['clsname'] . '</option>';
+                $honors = mysqli_query($db, "SELECT Honid, Honname FROM honors");
+                while ($ho = mysqli_fetch_assoc($honors)) {
+                  echo '<option value="' . $ho['Honid'] . '">' . $ho['Honname'] . '</option>';
                 }
-                mysqli_close($db);
                 ?>
               </select>
               <div class="invalid-feedback">
                 请输入学生所在班级
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="Sdept" class="form-label">获奖等级</label>
+              <select class="form-select" id="Sdept" name="Sdept">
+                <option value="">Choose...</option>
+                <option value="国家一等奖">国家一等奖</option>
+                <option value="国家二等奖">国家二等奖</option>
+                <option value="国家三等奖">国家三等奖</option>
+                <option value="国家优秀奖">国家优秀奖</option>
+                <option value="省级一等奖">省级一等奖</option>
+                <option value="省级二等奖">省级二等奖</option>
+                <option value="省级三等奖">省级三等奖</option>
+              </select>
+              <div class="invalid-feedback">
+                请选择奖项等级
               </div>
             </div>
 
@@ -114,8 +101,6 @@
 
     </footer>
   </div>
-
-  <script src="checkout.js"></script>
-</body>
-
-</html>
+  <?php
+  mysqli_close($db);
+  ?>

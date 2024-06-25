@@ -19,6 +19,7 @@
         <th scope="col">姓名</th>
         <th scope="col">奖项名称</th>
         <th scope="col">获奖等级</th>
+        <th scope="col">删除获奖信息</th>
       </tr>
     </thead>
     <tbody>
@@ -35,7 +36,7 @@
                     JOIN 
                         awd a ON s.Sno = a.Sno
                     JOIN 
-                        honors h ON h.honid = a.Awdid
+                        honors h ON h.honid = a.honid
                     WHERE 1=1';
 
       if (!empty($_POST['Sno'])) {
@@ -55,6 +56,9 @@
             echo "<td>{$row->姓名}</td>";
             echo "<td>{$row->奖项名称}</td>";
             echo "<td>{$row->奖项等级}</td>";
+            echo "<td>";
+            echo '<a class="icon-link icon-link-hover" href="delLog.php?Sno=' . $row->学号 . '">删除<svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg></a>';
+            echo "</td>";
             echo "</tr>";
           }
         } else {

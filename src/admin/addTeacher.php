@@ -1,0 +1,1 @@
+update student set Spassword = 'S016' where Sno = 'S016';

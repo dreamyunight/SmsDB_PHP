@@ -41,6 +41,8 @@
 
 执行建表命令
 
+注意：其中相同的老师课程号
+
 ```sql
 CREATE TABLE dept (
     Dno VARCHAR(10) PRIMARY KEY,
@@ -71,6 +73,7 @@ CREATE TABLE student (
     Dno VARCHAR(10),
     Mno varchar(10),
     Clsno VARCHAR(10),
+    Spassword VARCHAR(18) NOT NULL,
     FOREIGN KEY (Dno) REFERENCES dept(Dno),
     FOREIGN KEY (Mno) REFERENCES major(Mno),
     FOREIGN KEY (Clsno) REFERENCES classes(Clsno)
@@ -102,10 +105,12 @@ CREATE TABLE giveLessons (
 CREATE TABLE electives (
     Cno VARCHAR(6),
     Sno VARCHAR(12),
+    Tno VARCHAR(12),
     grade INT,
     PRIMARY KEY (Cno, Sno),
     FOREIGN KEY (Cno) REFERENCES course(Cno),
-    FOREIGN KEY (Sno) REFERENCES student(Sno)
+    FOREIGN KEY (Sno) REFERENCES student(Sno),
+    FOREIGN KEY (Tno) REFERENCES teacher(Tno)
 );
 
 CREATE TABLE honors (
@@ -184,6 +189,7 @@ erDiagram
     }
     electives["<选修>"] {
         varchar(6) Cno "课程编号 外键"
+        varchar Tno "教师编号 外键"
         varchar(12) Sno "学号 外键"
         int grade "考试得分"
     }
@@ -220,6 +226,7 @@ erDiagram
     electives }|--|{ student : "多对多"
     student ||--|{ awd : "一对多"
     awd }|--|| honors : "多对一"
+    teacher ||--|{ electives : "一对多"
 ```
 
 插入测试数据
@@ -250,22 +257,22 @@ INSERT INTO classes (Clsno, clsname, Clssize, Mno) VALUES
 ('C005', '生001', 28, 'M005');
 
 --student
-INSERT INTO student (Sno, Sname, Ssex, Sdate, Semail, Dno, Mno, Clsno) VALUES
-('S001', '爱丽丝', '女', '2000-01-01', 'alice@example.com', 'D001', 'M001', 'C001'),
-('S002', '鲍勃', '男', '1999-02-15', 'bob@example.com', 'D002', 'M002', 'C002'),
-('S003', '查理', '男', '2001-03-20', 'charlie@example.com', 'D003', 'M003', 'C003'),
-('S004', '戴维', '男', '2000-05-22', 'david@example.com', 'D004', 'M004', 'C004'),
-('S005', '艾玛', '女', '2001-07-30', 'emma@example.com', 'D005', 'M005', 'C005'),
-('S006', '弗兰克', '男', '1998-11-12', 'frank@example.com', 'D001', 'M001', 'C001'),
-('S007', '格蕾丝', '女', '1999-04-05', 'grace@example.com', 'D002', 'M002', 'C002'),
-('S008', '亨利', '男', '2000-06-18', 'henry@example.com', 'D003', 'M003', 'C003'),
-('S009', '艾莎', '女', '2001-08-25', 'elsa@example.com', 'D004', 'M004', 'C004'),
-('S010', '杰克', '男', '1999-09-30', 'jack@example.com', 'D005', 'M005', 'C005'),
-('S011', '卡拉', '女', '2000-12-14', 'kara@example.com', 'D001', 'M001', 'C001'),
-('S012', '李', '男', '1998-10-08', 'li@example.com', 'D002', 'M002', 'C002'),
-('S013', '玛丽亚', '女', '2001-01-22', 'maria@example.com', 'D003', 'M003', 'C003'),
-('S014', '尼克', '男', '2000-03-14', 'nick@example.com', 'D004', 'M004', 'C004'),
-('S015', '奥莉维亚', '女', '1999-02-19', 'olivia@example.com', 'D005', 'M005', 'C005');
+INSERT INTO student (Sno, Sname, Ssex, Sdate, Semail, Dno, Mno, Clsno, Spassword) VALUES
+('S001', '爱丽丝', '女', '2000-01-01', 'alice@example.com', 'D001', 'M001', 'C001', 'S001'),
+('S002', '鲍勃', '男', '1999-02-15', 'bob@example.com', 'D002', 'M002', 'C002', 'S002'),
+('S003', '查理', '男', '2001-03-20', 'charlie@example.com', 'D003', 'M003', 'C003', 'S003'),
+('S004', '戴维', '男', '2000-05-22', 'david@example.com', 'D004', 'M004', 'C004', 'S004'),
+('S005', '艾玛', '女', '2001-07-30', 'emma@example.com', 'D005', 'M005', 'C005', 'S005'),
+('S006', '弗兰克', '男', '1998-11-12', 'frank@example.com', 'D001', 'M001', 'C001', 'S006'),
+('S007', '格蕾丝', '女', '1999-04-05', 'grace@example.com', 'D002', 'M002', 'C002', 'S007'),
+('S008', '亨利', '男', '2000-06-18', 'henry@example.com', 'D003', 'M003', 'C003', 'S008'),
+('S009', '艾莎', '女', '2001-08-25', 'elsa@example.com', 'D004', 'M004', 'C004', 'S009'),
+('S010', '杰克', '男', '1999-09-30', 'jack@example.com', 'D005', 'M005', 'C005', 'S010'),
+('S011', '卡拉', '女', '2000-12-14', 'kara@example.com', 'D001', 'M001', 'C001', 'S011'),
+('S012', '李', '男', '1998-10-08', 'li@example.com', 'D002', 'M002', 'C002', 'S012'),
+('S013', '玛丽亚', '女', '2001-01-22', 'maria@example.com', 'D003', 'M003', 'C003', 'S013'),
+('S014', '尼克', '男', '2000-03-14', 'nick@example.com', 'D004', 'M004', 'C004', 'S014'),
+('S015', '奥莉维亚', '女', '1999-02-19', 'olivia@example.com', 'D005', 'M005', 'C005', 'S015');
 
 --course
 INSERT INTO course (Cno, Cname, Ccredit) VALUES
@@ -292,22 +299,22 @@ INSERT INTO giveLessons (Cno, Tno, startDate) VALUES
 ('C105', 'T005', '2023-09-01');
 
 --electives
-INSERT INTO electives (Cno, Sno, grade) VALUES
-('C101', 'S001', 95),
-('C102', 'S002', 88),
-('C103', 'S003', 92),
-('C104', 'S004', 85),
-('C105', 'S005', 90),
-('C101', 'S006', 87),
-('C102', 'S007', 93),
-('C103', 'S008', 91),
-('C104', 'S009', 89),
-('C105', 'S010', 84),
-('C101', 'S011', 96),
-('C102', 'S012', 85),
-('C103', 'S013', 94),
-('C104', 'S014', 90),
-('C105', 'S015', 88);
+INSERT INTO electives (Cno, Sno, Tno, grade) VALUES
+('C101', 'S001', 'T001', 95),
+('C102', 'S002', 'T002', 88),
+('C103', 'S003', 'T003', 92),
+('C104', 'S004', 'T004', 85),
+('C105', 'S005', 'T005', 90),
+('C101', 'S006', 'T001', 87),
+('C102', 'S007', 'T002', 93),
+('C103', 'S008', 'T003', 91),
+('C104', 'S009', 'T004', 89),
+('C105', 'S010', 'T005', 84),
+('C101', 'S011', 'T001', 96),
+('C102', 'S012', 'T002', 85),
+('C103', 'S013', 'T003', 94),
+('C104', 'S014', 'T004', 90),
+('C105', 'S015', 'T005', 88);
 
 --honors
 INSERT INTO honors (Honname) VALUES
