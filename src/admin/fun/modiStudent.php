@@ -84,9 +84,9 @@ $row = mysqli_fetch_object($result);
             <div class="col-sm-4">
               <label for="Ssex" class="form-label">性别：</label>
               <select class="form-select" id="Ssex" name="Ssex" required>
-                <option value=" <?php echo $row->性别 ?>"><?php echo $row->性别 ?></option>
-                <option>男</option>
-                <option>女</option>
+                <option value="<?php echo $row->性别 ?>"><?php echo $row->性别 ?></option>
+                <option value="男">男</option>
+                <option value="女">女</option>
               </select>
               <div class="invalid-feedback">
                 请选择你的性别
@@ -104,7 +104,7 @@ $row = mysqli_fetch_object($result);
             <div class="col-12">
               <label for="Sno" class="form-label">学号</label>
               <div class="input-group has-validation">
-                <input type="text" class="form-control" id="Sno" name="Sno" value="<?php echo $row->学号 ?>" required>
+                <input type="text" class="form-control" id="Sno" name="Sno" value="<?php echo $row->学号 ?>" required disabled>
                 <div class="invalid-feedback">
                   请填写学生学号
                 </div>
