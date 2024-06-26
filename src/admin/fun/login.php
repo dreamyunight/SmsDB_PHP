@@ -23,7 +23,14 @@ function check_param($value = null)
 }
 
 if (check_param($user) && check_param($pass)) {
-  $sql = 'select * from teacher where Tno=' . "'{$user}'and Tpassword=" . "'$pass';";
+  $sql = 'select 
+            * 
+          from
+            teacher
+          where 
+            Tno=' . "'{$user}'
+          and 
+            Tpassword=" . "'$pass';";
   $res = mysqli_query($db, $sql);
   $row = $res->num_rows; //将获取到的用户名和密码拿到数据库里面去查找匹配
   if ($row != 0) {

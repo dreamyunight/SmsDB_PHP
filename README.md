@@ -282,11 +282,11 @@ INSERT INTO course (Cno, Cname, Ccredit) VALUES
 
 --teacher
 INSERT INTO teacher (Tno, Tpassword, Tname, Dno) VALUES
-('T001', 'password123', '史密斯博士', 'D001'),
-('T002', 'password456', '约翰逊博士', 'D002'),
-('T003', 'password789', '威廉姆斯博士', 'D003'),
-('T004', 'password321', '戴维斯博士', 'D004'),
-('T005', 'password654', '威尔逊博士', 'D005');
+('T001', 'T001', '史密斯博士', 'D001'),
+('T002', 'T002', '约翰逊博士', 'D002'),
+('T003', 'T003', '威廉姆斯博士', 'D003'),
+('T004', 'T004', '戴维斯博士', 'D004'),
+('T005', 'T005', '威尔逊博士', 'D005');
 
 --giveLessons
 INSERT INTO giveLessons (Cno, Tno, startDate) VALUES
