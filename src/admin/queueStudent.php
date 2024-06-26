@@ -30,7 +30,7 @@
       </div>
 
       <div class="row g-5">
-        <form action="./fun/addStudent.php" method="post" target="resultbox" class="needs-validation">
+        <form action="./fun/getStudent.php" method="post" target="resultbox" class="needs-validation">
           <div class="row g-3">
 
             <div class="col-sm-4">
@@ -105,7 +105,7 @@
 
           <hr class="my-4">
 
-          <button class="w-100 btn btn-primary btn-lg" type="submit">新增奖项</button>
+          <button class="w-100 btn btn-primary btn-lg" type="submit">查询学生</button>
         </form>
         <iframe name="resultbox" frameborder="0" width="100%" height="500px"></iframe>
       </div>

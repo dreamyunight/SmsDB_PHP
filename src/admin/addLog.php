@@ -8,10 +8,10 @@ require_once("../config/database.php");
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>学生管理>>查询学生</title>
+  <title>学生管理>>获奖登记</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-  <title>查询学生</title>
+  <title>获奖登记</title>
 
   <link rel="stylesheetlocal" type="text/css" href="css/addStudent.css">
 
@@ -26,10 +26,10 @@ require_once("../config/database.php");
       <div class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="../resources/login.png" alt="" width="72" height="72">
         <h2>
-          查询学生
+          获奖登记
         </h2>
         <p class="lead">
-          请输入学生的详细信息
+          请输入获奖详细信息
         </p>
       </div>
 

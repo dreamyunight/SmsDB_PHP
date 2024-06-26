@@ -22,7 +22,7 @@
       <div class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="../resources/login.png" alt="" width="72" height="72">
         <h2>
-          查询学生
+          学生奖项
         </h2>
         <p class="lead">
           请输入学生的详细信息

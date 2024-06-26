@@ -4,10 +4,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>学生管理>>教师信息</title>
+  <title>学生管理>>课程查询</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-  <title>教师信息</title>
+  <title>课程查询</title>
 
   <link rel="stylesheetlocal" type="text/css" href="css/addStudent.css">
 
@@ -22,50 +22,40 @@
       <div class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="../resources/login.png" alt="" width="72" height="72">
         <h2>
-          查询教师信息
+          查询课程信息
         </h2>
         <p class="lead">
-          请输入教师的详细信息
+          请输入课程的详细信息
         </p>
       </div>
 
       <div class="row g-5">
-        <form action="./fun/getTeacher.php" method="post" target="resultbox" class="needs-validation">
+        <form action="./fun/getCourse.php" method="post" target="resultbox" class="needs-validation">
           <div class="row g-3">
 
-            <div class="col-sm-3">
-              <label for="Tname" class="form-label">姓名</label>
+            <div class="col-sm-5">
+              <label for="Tname" class="form-label">教学老师姓名</label>
               <input type="text" class="form-control" id="Tname" name="Tname" placeholder="" value="">
               <div class="invalid-feedback">
-                请填写教师姓名
+                请教学教师姓名
               </div>
             </div>
 
-            <div class="col-3">
-              <label for="Tno" class="form-label">教师编号</label>
-              <div class="input-group has-validation">
-                <input type="text" class="form-control" id="Tno" name="Tno" placeholder="">
-                <div class="invalid-feedback">
-                  请填写教师编号
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6">
-              <label for="Tdept" class="form-label">所属学院</label>
-              <select class="form-select" id="Tdept" name="Tdept">
+            <div class="col-7">
+              <label for="Cno" class="form-label">课程名称</label>
+              <select class="form-select" id="Cno" name="Cno">
                 <option value="">Choose...</option>
                 <?php
                 require_once '../config/database.php';
-                $dept = mysqli_query($db, "SELECT Dno, Dname FROM dept");
-                while ($dr = mysqli_fetch_assoc($dept)) {
-                  echo '<option value="' . $dr['Dno'] . '">' . $dr['Dname'] . '</option>';
+                $course = mysqli_query($db, "SELECT Cno, Cname FROM course");
+                while ($cr = mysqli_fetch_assoc($course)) {
+                  echo '<option value="' . $cr['Cno'] . '">' . $cr['Cname'] . '</option>';
                 }
                 mysqli_close($db);
                 ?>
               </select>
               <div class="invalid-feedback">
-                请选择教师所在学院
+                请填写课程名称
               </div>
             </div>
 

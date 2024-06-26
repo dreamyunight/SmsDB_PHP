@@ -57,6 +57,11 @@ $row = mysqli_fetch_object($result);
 
   <!-- Custom styles for this template -->
   <link href="checkout.css" rel="stylesheet">
+  <style>
+    .Sno-input {
+      display: none;
+    }
+  </style>
 </head>
 
 <body class="bg-body-tertiary">
@@ -101,10 +106,10 @@ $row = mysqli_fetch_object($result);
               </div>
             </div>
 
-            <div class="col-12">
+            <div class="col-12 Sno-input">
               <label for="Sno" class="form-label">学号</label>
               <div class="input-group has-validation">
-                <input type="text" class="form-control" id="Sno" name="Sno" value="<?php echo $row->学号 ?>" required disabled>
+                <input type="text" class="form-control" id="Sno" name="Sno" value="<?php echo $row->学号 ?>" required>
                 <div class="invalid-feedback">
                   请填写学生学号
                 </div>
@@ -122,7 +127,11 @@ $row = mysqli_fetch_object($result);
             <div class="col-md-4">
               <label for="Sdept" class="form-label">学院</label>
               <select class="form-select" id="Sdept" name="Sdept" required>
-                <option value="<?php echo $row->学院 ?>"><?php echo $row->学院 ?></option>
+                <?php
+                $dept = mysqli_query($db, "SELECT Dno FROM dept WHERE dept.Dname = '$row->学院'");
+                $dr = mysqli_fetch_assoc($dept)
+                ?>
+                <option value="<?php echo $dr['Dno'] ?>"><?php echo $row->学院 ?></option>
                 <?php
                 $dept = mysqli_query($db, "SELECT Dno, Dname FROM dept");
                 while ($dr = mysqli_fetch_assoc($dept)) {
@@ -138,7 +147,11 @@ $row = mysqli_fetch_object($result);
             <div class="col-md-4">
               <label for="Smajor" class="form-label">专业</label>
               <select class="form-select" id="Smajor" name="Smajor" required>
-                <option value="<?php echo $row->专业 ?>"><?php echo $row->专业 ?></option>
+                <?php
+                $major = mysqli_query($db, "SELECT Mno FROM major WHERE major.Mname = '$row->专业'");
+                $mr = mysqli_fetch_assoc($major)
+                ?>
+                <option value="<?php echo $mr['Mno'] ?>"><?php echo $row->专业 ?></option>
                 <?php
                 $major = mysqli_query($db, "SELECT Mno, Mname FROM major");
                 while ($mr = mysqli_fetch_assoc($major)) {
@@ -154,7 +167,11 @@ $row = mysqli_fetch_object($result);
             <div class="col-md-4">
               <label for="Sclass" class="form-label">班级</label>
               <select class="form-select" id="Sclass" name="Sclass" required>
-                <option value="<?php echo $row->班级 ?>"><?php echo $row->班级 ?></option>
+                <?php
+                $classes = mysqli_query($db, "SELECT Clsno FROM classes WHERE classes.clsname = '$row->班级'");
+                $cl = mysqli_fetch_assoc($classes);
+                ?>
+                <option value="<?php echo $cl['Clsno'] ?>"><?php echo $row->班级 ?></option>
                 <?php
                 $classes = mysqli_query($db, "SELECT Clsno, clsname FROM classes");
                 while ($cl = mysqli_fetch_assoc($classes)) {

@@ -58,6 +58,9 @@ if (!isset($_SESSION["admin"])) {
       <div class="item">
         <a href="./addTeacher.php" target="frame">添加老师</a>
       </div>
+      <div class="item">
+        <a href="./addGivelession.php" target="frame">新增授课</a>
+      </div>
       <div class="subtitle">
         课程管理
       </div>
@@ -75,9 +78,6 @@ if (!isset($_SESSION["admin"])) {
       </div>
       <div class="item">
         <a href="./queueMark.php" target="frame">登记分数</a>
-      </div>
-      <div class="item">
-        <a href="./queueRetake.php" target="frame">补考重修</a>
       </div>
       <div class="subtitle">
         <!-- 数据统计

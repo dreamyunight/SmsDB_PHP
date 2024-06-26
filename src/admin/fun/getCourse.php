@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>学生管理>>查询教师</title>
+  <title>学生管理>>查询课程</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-  <title>查询教师</title>
+  <title>查询课程</title>
   <link rel="stylesheetlocal" type="text/css" href="css/addStudent.css">
   <!-- Custom styles for this template -->
   <link href="checkout.css" rel="stylesheet">
@@ -15,12 +15,10 @@
   <table class="table table-striped table-sm">
     <thead>
       <tr>
-        <th scope="col">教师编号</th>
-        <th scope="col">教师姓名</th>
-        <th scope="col">所属院系</th>
-        <th scope="col">所教课程</th>
-        <th scope="col">学术成果</th>
-        <th scope="col">发表期刊</th>
+        <th scope="col">课程编号</th>
+        <th scope="col">课程名称</th>
+        <th scope="col">上课时间</th>
+        <th scope="col">教学老师</th>
       </tr>
     </thead>
     <tbody>
@@ -28,34 +26,23 @@
       require_once("../../config/database.php");
 
       $com = 'SELECT 
-                  t.Tno AS 教师编号,
-                  t.Tname AS 教师姓名,
-                  d.Dname AS 所属院系,
-                  c.Cname AS 所教课程,
-                  p.pubName AS 学术成果,
-                  sci.scino AS 发表期刊
+                  c.cno AS 课程编号,
+                  c.Cname AS 课程名称,
+                  g.startDate AS 上课时间,
+                  t.Tname AS 教学老师
               FROM 
-                  teacher t
+                  course c
               LEFT JOIN 
-                  giveLessons g ON t.Tno = g.Tno
-              LEFT JOIN 
-                  course c ON g.Cno = c.Cno
-              LEFT JOIN 
-                  dept d ON t.Dno = d.Dno
+                  giveLessons g ON c.Cno = g.Cno
               LEFT JOIN
-                  public p ON t.Tno = p.Tno
-              LEFT JOIN
-                  sci ON p.sciId =  sci.sciId
+                  teacher t ON t.Tno = g.Tno 
               WHERE 1=1';
 
       if (!empty($_POST['Tname'])) {
         $com .= ' AND t.Tname LIKE "%' . mysqli_real_escape_string($db, $_POST['Tname']) . '%"';
       }
-      if (!empty($_POST['Tno'])) {
-        $com .= ' AND t.Tno LIKE "%' . mysqli_real_escape_string($db, $_POST['Tno']) . '%"';
-      }
-      if (!empty($_POST['Tdept'])) {
-        $com .= ' AND d.Dname LIKE "%' . mysqli_real_escape_string($db, $_POST['Tdept']) . '%"';
+      if (!empty($_POST['Cno'])) {
+        $com .= ' AND t.Tno LIKE "%' . mysqli_real_escape_string($db, $_POST['Cno']) . '%"';
       }
 
       $result = mysqli_query($db, $com);
@@ -64,12 +51,10 @@
         if (mysqli_num_rows($result) > 0) { //检查查询结果是否包含行
           while ($row = mysqli_fetch_object($result)) {
             echo "<tr>";
-            echo "<td>{$row->教师编号}</td>";
-            echo "<td>{$row->教师姓名}</td>";
-            echo "<td>{$row->所属院系}</td>";
-            echo "<td>{$row->所教课程}</td>";
-            echo "<td>{$row->学术成果}</td>";
-            echo "<td>{$row->发表期刊}</td>";
+            echo "<td>{$row->课程编号}</td>";
+            echo "<td>{$row->课程名称}</td>";
+            echo "<td>{$row->上课时间}</td>";
+            echo "<td>{$row->教学老师}</td>";
             // echo "<td>";
             // echo '<a class="icon-link icon-link-hover" href="modiStudent.php?Sno=' . $row->学号 . '">修改<svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg></a>';
             // echo "</td>";
