@@ -23,7 +23,7 @@ if (!isset($_SESSION["admin"])) {
       学生选课信息管理系统
     </div>
     <div class="userbox" style="float:right">
-      你好，管理员
+      你好,
       <?= $_SESSION["admin"] ?>
       <a href="./logout.php"> 登出</a>
     </div>

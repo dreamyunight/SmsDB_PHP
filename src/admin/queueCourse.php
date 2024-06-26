@@ -63,7 +63,7 @@
 
           <hr class="my-4">
 
-          <button class="w-100 btn btn-primary btn-lg" type="submit">查询教师</button>
+          <button class="w-100 btn btn-primary btn-lg" type="submit">查询课程</button>
         </form>
         <iframe name="resultbox" frameborder="0" width="100%" height="500px"></iframe>
       </div>

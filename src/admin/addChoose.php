@@ -83,7 +83,7 @@ require_once("../config/database.php");
 
           <hr class="my-4">
 
-          <button class="w-100 btn btn-primary btn-lg" type="submit">新增授课</button>
+          <button class="w-100 btn btn-primary btn-lg" type="submit">选课</button>
         </form>
         <iframe name="resultbox" frameborder="0" width="100%" height="500px"></iframe>
       </div>
