@@ -101,11 +101,11 @@ CREATE TABLE giveLessons (
 );
 
 CREATE TABLE electives (
+    Eno INT PRIMARY KEY AUTO_INCREMENT,
     Cno VARCHAR(6),
     Sno VARCHAR(12),
     Tno VARCHAR(12),
     grade INT,
-    PRIMARY KEY (Cno, Sno),
     FOREIGN KEY (Cno) REFERENCES course(Cno),
     FOREIGN KEY (Sno) REFERENCES student(Sno),
     FOREIGN KEY (Tno) REFERENCES teacher(Tno)

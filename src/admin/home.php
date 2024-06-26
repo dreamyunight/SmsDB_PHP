@@ -74,28 +74,22 @@ if (!isset($_SESSION["admin"])) {
         选课管理
       </div>
       <div class="item">
-        <a href="./queueChoose.php" target="frame">学生选课</a>
+        <a href="./addChoose.php" target="frame">学生选课</a>
       </div>
-      <div class="item">
+      <!-- <div class="item">
         <a href="./queueMark.php" target="frame">登记分数</a>
+      </div> -->
+      <div class="item">
+        <a href="./queueElectives.php" target="frame">选课查询</a>
       </div>
       <div class="subtitle">
-        <!-- 数据统计
-      </div>
-      <div class="item">
-        <a href="./scoreStatistic.php" target="frame">成绩统计</a>
-      </div>
-      <div class="item">
-        <a href="./classStatistic.php" target="frame">选课统计</a>
-      </div>
-      <div class="subtitle"> -->
         系统设置
       </div>
       <div class="item">
-        <a href="./userManage.php" target="frame">用户管理</a>
+        <a href="./changeSpassword.php" target="frame">学生密码</a>
       </div>
       <div class="item">
-        <a href="./changePassword.php" target="frame">修改密码</a>
+        <a href="./changeTpassword.php" target="frame">教师密码</a>
       </div>
 
     </div>
