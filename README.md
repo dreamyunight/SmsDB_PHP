@@ -220,6 +220,8 @@ erDiagram
     public }|--|{ sci : "多对多"
     teacher }|--|| dept : "一对多"
     student }|--|| classes : "多对一"
+    student ||--|{ major : "一对多"
+    student ||--|{ dept : "一对多"
     classes }|--|| major : "多对一"
     major }|--|| dept : "多对一"
     course }|--|| electives : "多对一"
